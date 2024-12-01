@@ -1,19 +1,24 @@
-import { useEffect } from "react";
-import { updateApi } from "./Services/PostApi"
+import { useEffect, useState } from "react";
+import { updateApi } from "./Services/PostApi";
+import Form from "./Component/Form";
+import BlogCard from "./Component/BlogCard";
 
 function App() {
-
-  const getData = async () =>{
+  const [apidata, setapiData] = useState([]);
+  const getData = async () => {
     const response = await updateApi();
-    console.log(response);
-  }
-  
-  useEffect(() =>{
-      getData();
-  },[])
-  return(
-    <h1>Rect CURD Operation</h1>
-  )
+    setapiData(response.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+  return (
+    <>
+      <Form />
+      <BlogCard  data={apidata}/>  
+      </>
+  );
 }
 
-export default App
+export default App;
