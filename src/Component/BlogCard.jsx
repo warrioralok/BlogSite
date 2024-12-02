@@ -1,12 +1,49 @@
 /* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
+import { deleteApi, updateApi } from "../Services/PostApi";
 import "./Blog.css";
-const BlogCard = ({ data }) => {
-  return (
+const BlogCard = () => {
+    const [apidata, setapiData] = useState([]);
+
+    const getData = async () => {
+        try {
+          const response = await updateApi();
+          setapiData(response.data);
+          console.log("Fetched data:", response.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+
+      const handleDelete = async (e, id) => {
+        e.preventDefault(); // Prevent default anchor behavior
+        try {
+          const response = await deleteApi(id); // Call the delete API
+          if(response.status === 200){
+            setapiData(apidata.filter((item) => item.id !== id));
+            console.log("Deleted data:", response.data);
+          }  
+         
+          
+        } catch (error) {
+          console.error("Error deleting the post:", error);
+        }
+      };
+
+    
+    
+
+
+    useEffect(() => {
+        getData();
+      }, []);
+
+    return (
     <>
       <section className="blog-container">
-        {data.map((elem) => {
+        {apidata.map((elem) => {
           return (
-            <>
+            
               <div className="blog-card" key={elem.id}>
                 <img
                   src="https://via.placeholder.com/300x200"
@@ -22,12 +59,12 @@ const BlogCard = ({ data }) => {
                   <a href="#" className="blog-link">
                     Edit
                   </a>
-                  <a href="#" className="blog-link delete">
+                  <a href="#" className="blog-link delete" onClick={(e) => handleDelete(e,elem.id)}>
                     Delete
                   </a>
                 </div>
               </div>
-            </>
+           
           );
         })}
       </section>
