@@ -13,3 +13,7 @@ export const updateApi = async () =>{
 export const deleteApi = async (id) => {
     return await api.delete(`/posts/${id}`);
 };
+
+export const postData = async (post) =>{
+    return await api.post('/posts',post)
+}

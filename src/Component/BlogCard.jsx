@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { deleteApi, updateApi } from "../Services/PostApi";
 import "./Blog.css";
+import Form from "./Form";
 const BlogCard = () => {
     const [apidata, setapiData] = useState([]);
 
@@ -40,6 +41,7 @@ const BlogCard = () => {
 
     return (
     <>
+      <Form apidata={apidata} setapiData={setapiData}/>  
       <section className="blog-container">
         {apidata.map((elem) => {
           return (

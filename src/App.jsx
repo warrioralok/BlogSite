@@ -1,4 +1,3 @@
-import Form from "./Component/Form";
 import BlogCard from "./Component/BlogCard";
 
 function App() {
@@ -7,7 +6,6 @@ function App() {
   
   return (
     <>
-      <Form />
         <BlogCard/>  
       </>
   );
